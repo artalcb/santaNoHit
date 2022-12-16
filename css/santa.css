@@ -10,6 +10,6 @@ svg {
 }
 
 rect{
-    transform: translateX(50%);
-    transform-origin: top;
+    transform: translateX(calc(50% - 10px));
+    transform-origin: bottom;
 }
