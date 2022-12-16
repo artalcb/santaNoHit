@@ -11,5 +11,5 @@ svg {
 
 rect{
     transform: translateX(calc(50% - 10px));
-    transform-origin: bottom;
+    transform-origin: 0 100%;
 }
