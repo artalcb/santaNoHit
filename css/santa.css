@@ -1,0 +1,15 @@
+body{
+   overflow: hidden;
+}
+svg {
+    bottom: 0;
+    position: absolute; 
+    width:100%;
+    background-color: aliceblue;
+    transform-origin: bottom;
+}
+
+rect{
+    transform: translateX(50%);
+    transform-origin: top;
+}
