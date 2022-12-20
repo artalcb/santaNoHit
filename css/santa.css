@@ -1,5 +1,10 @@
+:root{
+    --width: 40;
+}
 body{
    overflow: hidden;
+   cursor: none;
+
 }
 svg {
     bottom: 0;
@@ -12,4 +17,25 @@ svg {
 rect{
     transform: translateX(calc(50% - 10px));
     transform-origin: 0 100%;
+}
+
+#crosshair{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    display:none;
+    user-select: none;
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+}
+
+.ball {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    animation: ball 3s alternate linear infinite, bounce 2s alternate ease-out infinite;
+    border: solid black 0.1px;
+
+    box-shadow: inset -5px -4px 6px 6px rgba(39, 39, 39, 0.155);
 }
