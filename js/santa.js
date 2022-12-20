@@ -1,10 +1,14 @@
 //document.body.addEventListener("mouseover", updateDiv, false);
 var shotgun = document.getElementById('shotgun');
 var svg = document.getElementById('svg');
+var width = getComputedStyle(document.documentElement)
+    .getPropertyValue('--width');
 
-var cursorX;
-var cursorY;
+
+
 document.onmousemove = function (e) {
+    let cursorX;
+    let cursorY;
     cursorX = (e.pageX / window.innerWidth);
     cursorY = (e.pageY / window.innerHeight);
     posY = (Math.abs(cursorY - 1));
@@ -23,14 +27,22 @@ document.onmousemove = function (e) {
 
 }
 
-document.onmousedown = function (e) {
-    let ball = document.createElement("div");
-    ball.className = "ball";
 
-    let style = document.createElement('style');
-    style.type = 'text/css';
-    let keyFrames = '\
-@-webkit-keyframes travel {\
+
+
+var array = new Array(true, true, true, true, true, true);
+document.onmousedown = function (e) {
+  
+    if (array.indexOf(true) >= 0) {
+        let indexBall = array.indexOf(true);
+        console.log(array.filter(x => x==true).length);
+        array[indexBall]=false;
+        let ball = document.createElement("div");
+        ball.className = "ball";
+
+        let style = document.createElement('style');
+        let keyFrames = '\
+@-webkit-keyframes travel'+indexBall+' {\
     0% {\
         left: 50%;\
         top: 100%;\
@@ -46,17 +58,32 @@ document.onmousedown = function (e) {
     }\
 }';
 
-    var width = getComputedStyle(document.documentElement)
-        .getPropertyValue('--width');
-    let dynamX = (((e.pageX - (width/2)) / window.innerWidth) * 100) + "%";
-    let dynamY = (((e.pageY - (width / 2)) / window.innerHeight) * 100) + "%";
-    style.innerHTML = keyFrames.replace(/dynamX/g, dynamX).replace(/dynamY/g, dynamY);
-    document.getElementsByTagName('head')[0].appendChild(style);
 
+        let dynamX = (((e.pageX - (width / 2)) / window.innerWidth) * 100);
+        let dynamY = (((e.pageY - (width / 2)) / window.innerHeight) * 100);
+        style.innerHTML = keyFrames.replace(/dynamX/g, dynamX + "%").replace(/dynamY/g, dynamY + "%");
+        //xddddd
+        document.getElementsByTagName('head')[0].appendChild(style);
 
-    //ball.style.animation = "travel 1s cubic-bezier(0,0,0,1.8)";
-    ball.style.animation = "travel 1s ease-out";
-    document.body.appendChild(ball);
+        //ball.style.animation = "travel 1s cubic-bezier(0,0,0,1.8)";
+
+        let gonzaloX = Math.abs((e.pageX - (width / 2)) - (window.innerWidth / 2));
+        let gonzaloY = Math.abs((e.pageY - (width / 2)) - (window.innerHeight));
+
+        let distancia = Math.sqrt(Math.pow(gonzaloX, 2) + Math.pow(gonzaloY, 2))
+
+        var time = distancia * 1.1;
+
+        ball.style.animation = "travel"+indexBall+" " + time + "ms ease-out";
+        document.body.appendChild(ball);
+
+        delay(time).then(() => document.body.removeChild(ball));
+        delay(time).then(() => array[indexBall] = true);
+        
+    }
 }
 
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
 

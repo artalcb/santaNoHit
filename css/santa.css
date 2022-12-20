@@ -33,9 +33,9 @@ rect{
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    top: -20%;
     background-color: white;
     animation: ball 3s alternate linear infinite, bounce 2s alternate ease-out infinite;
     border: solid black 0.1px;
-
     box-shadow: inset -5px -4px 6px 6px rgba(39, 39, 39, 0.155);
 }
