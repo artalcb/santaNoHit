@@ -29,16 +29,18 @@ document.onmousemove = function (e) {
 
 
 
-
-var array = new Array(true, true, true, true, true, true);
+const MAX_BALLS = 5;
+var array = new Array(MAX_BALLS).fill(true, 0, MAX_BALLS);
 document.onmousedown = function (e) {
-  
     if (array.indexOf(true) >= 0) {
+       
         let indexBall = array.indexOf(true);
         console.log(array.filter(x => x==true).length);
         array[indexBall]=false;
+        updateLives();
         let ball = document.createElement("div");
         ball.className = "ball";
+        ball.style.position = "absolute";
 
         let style = document.createElement('style');
         let keyFrames = '\
@@ -54,7 +56,7 @@ document.onmousedown = function (e) {
     100% {\
         left: dynamX;\
         top: dynamY;\
-        transform: scale(0.8, 0.8);\
+        transform: scale(0.5, 0.5);\
     }\
 }';
 
@@ -79,8 +81,21 @@ document.onmousedown = function (e) {
 
         delay(time).then(() => document.body.removeChild(ball));
         delay(time).then(() => array[indexBall] = true);
-        
+        delay(time).then(() => updateLives());
     }
+}
+updateLives();
+function updateLives(){
+    document.getElementById("lives").innerHTML = "";
+    for (var i = 0; i < MAX_BALLS; i++) {
+        if (array[i]){
+            let ball = document.createElement("div");
+            ball.className = "ball";
+            ball.style.position = "relative";
+            ball.style.top = "0%";
+            document.getElementById("lives").appendChild(ball);
+        }
+      }
 }
 
 function delay(time) {
