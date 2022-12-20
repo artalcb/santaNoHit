@@ -24,6 +24,7 @@ document.onmousemove = function (e) {
     crosshair.style.top = "calc(" + e.pageY + "px - " + crosshair.height / 2 + "px)";
     crosshair.style.display = "block";
     crosshair.setAttribute('draggable', false);
+    
 
 }
 
@@ -41,7 +42,7 @@ document.onmousedown = function (e) {
         let ball = document.createElement("div");
         ball.className = "ball";
         ball.style.position = "absolute";
-
+        ball.setAttribute('draggable', false);
         let style = document.createElement('style');
         let keyFrames = '\
 @-webkit-keyframes travel'+indexBall+' {\
@@ -75,7 +76,7 @@ document.onmousedown = function (e) {
         let distancia = Math.sqrt(Math.pow(gonzaloX, 2) + Math.pow(gonzaloY, 2))
 
         var time = distancia * 1.1;
-
+        
         ball.style.animation = "travel"+indexBall+" " + time + "ms ease-out";
         document.body.appendChild(ball);
 
