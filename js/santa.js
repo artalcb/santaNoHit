@@ -75,27 +75,45 @@ document.onmousedown = function (e) {
 
         let distancia = Math.sqrt(Math.pow(gonzaloX, 2) + Math.pow(gonzaloY, 2))
 
-        var time = distancia * 1.1;
+        var time = distancia * 0.8;
         
         ball.style.animation = "travel"+indexBall+" " + time + "ms ease-out";
         document.body.appendChild(ball);
 
         delay(time).then(() => document.body.removeChild(ball));
-        delay(time).then(() => array[indexBall] = true);
-        delay(time).then(() => updateLives());
+
+        tiempoRecarga = time + 500;
+        delay(tiempoRecarga).then(() => array[indexBall] = true);
+        delay(tiempoRecarga).then(() => updateLives());
     }
 }
+
+// initial lives 
 updateLives();
 function updateLives(){
     document.getElementById("lives").innerHTML = "";
-    for (var i = 0; i < MAX_BALLS; i++) {
+    for (var i = MAX_BALLS-1; i >= 0; i--) {
+        /*
         if (array[i]){
             let ball = document.createElement("div");
             ball.className = "ball";
             ball.style.position = "relative";
             ball.style.top = "0%";
+            
             document.getElementById("lives").appendChild(ball);
         }
+        */
+        
+            let ball = document.createElement("div");
+            ball.className = "ball";
+            ball.style.position = "relative";
+            ball.style.top = "0%";
+            
+            if (!array[i]){
+                ball.style.filter = "opacity(10%)";
+                
+            }
+            document.getElementById("lives").appendChild(ball);
       }
 }
 
